@@ -15,14 +15,11 @@ function max(arr) {
 }
 
 function softmax(arr) {
-  // Compute the maximum value in the array
   const maxVal = max(arr)[0];
-  // Compute the exponentials of the array values
   const exps = arr.map((x) => Math.exp(x - maxVal));
-  // Compute the sum of the exponentials
   const sumExps = exps.reduce((acc, val) => acc + val, 0);
-  // Compute the softmax values
   const softmaxArr = exps.map((x) => x / sumExps);
+  
   return softmaxArr;
 }
 
@@ -36,7 +33,7 @@ self.onmessage = async (event) => {
       return_tensors: "ort",
     });
 
-    const session = await ort.InferenceSession.create("model.onnx");
+    const session = await ort.InferenceSession.create("model_quantized.onnx");
     const feeds = {
       input_ids: new ort.Tensor(
         "int64",
@@ -81,7 +78,6 @@ self.onmessage = async (event) => {
     const probabilities = softmax(maskTokenLogits);
 
     const [maxProb, topPredictionIndex] = max(probabilities);
-    console.log(maxProb, topPredictionIndex);
 
     const topPrediction = await tokenizer.decode([topPredictionIndex]);
 

@@ -9,7 +9,7 @@ export function runOnnxInference(input) {
       } else {
         resolve(event.data.topPrediction);
       }
-      worker.terminate(); // Terminate the worker once the message is received
+      worker.terminate();
     };
 
     worker.onerror = (error) => {
