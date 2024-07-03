@@ -1,5 +1,7 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). This project uses the ONNX web runtime and bert-base-uncased to do fill-mask inference in the browser. You'll need git-lfs to download the onnx and wasm files included. Transformersjs is used for tokenization.
 
+When running inference make sure you have a mask token included, e.g. `I am the [MASK] person ever!`.
+
 ## Getting Started
 
 First, run the development server:
